@@ -1,0 +1,20 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration
+
+>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+
+
+            ></PatternLayout>
+
+        </Console>
+
+    </Appenders>
+
+
+
+
+</configuration>
