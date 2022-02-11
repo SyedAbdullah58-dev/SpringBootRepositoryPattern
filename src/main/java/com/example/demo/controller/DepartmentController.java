@@ -7,13 +7,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-
 @RequestMapping(path = "api/v1/department")
-public class departmentController {
+public class DepartmentController {
     public final DepartmentService departmentService;
 
     @Autowired
-    public departmentController(DepartmentService departmentService) {
+    public DepartmentController(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
     @GetMapping

@@ -1,4 +1,10 @@
 package com.example.demo.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,17 +24,17 @@ public class Employee{
     )
 
     private Long employeeId;
-    @Column
+    @Column()@Basic(fetch = FetchType.LAZY)
     private int salary;
     private String designation;
 
-    @Embedded
+    @Embedded()
     private User user;
 
-    @ManyToOne(targetEntity = Tenant.class,cascade = CascadeType.MERGE)
+    @ManyToOne(targetEntity = Tenant.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Tenant tenant;
 
-    @ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(
             name = "assigned_department",
             joinColumns = @JoinColumn(name = "employee_id"),

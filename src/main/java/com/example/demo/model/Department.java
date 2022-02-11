@@ -16,8 +16,7 @@ public class Department {
     private Long id;
     private String departmentName;
 
-@ManyToMany(targetEntity = Employee.class,cascade = CascadeType.MERGE,mappedBy = "departmentSet",fetch = FetchType.LAZY)
-@JsonIgnore
+@ManyToMany(targetEntity = Employee.class,cascade = CascadeType.MERGE,mappedBy = "departmentSet")
 private Set<Employee> employeeSet=new HashSet<Employee>();
 
     public Department() {

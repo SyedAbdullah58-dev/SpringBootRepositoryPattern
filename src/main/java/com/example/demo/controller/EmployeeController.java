@@ -5,7 +5,7 @@ import com.example.demo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,14 +23,14 @@ employeeService.getSingleEmployee(id,designation);
 
     }*/
 @RequestMapping(path = "/pageable",method = RequestMethod.GET)
-    Page<Employee> getEmployee(Pageable pageable){
-        return employeeService.getEmployee(pageable);
+Page<Employee> getEmployee(@RequestParam int page, @RequestParam int size){
+        return employeeService.getEmployee(page,size);
     }
 
     @GetMapping
     public List<Employee> getAllEmployee(){
 
-        return  employeeService.getEmployee();
+        return  employeeService.getAllEmployee();
     }
     @DeleteMapping(path = "delete/{employeeId}")
     public String deleteEmployee(@PathVariable("employeeId")Long employeeId){

@@ -48,6 +48,6 @@ public class UserAuthFilter extends UsernamePasswordAuthenticationFilter {
                 setExpiration(Date.valueOf(LocalDate.now().plusWeeks(2)))
                 .signWith(SignatureAlgorithm.HS256,"secret").compact();
         response.addHeader(jwtConfig.getAuthorization(), jwtConfig.getTokenPrefix()+token);
-        System.out.println(token);
+
     }
 }

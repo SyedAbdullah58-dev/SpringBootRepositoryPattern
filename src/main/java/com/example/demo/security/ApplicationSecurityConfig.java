@@ -1,10 +1,7 @@
-package com.example.demo.configuration;
-
+package com.example.demo.security;
 import com.example.demo.jwt.JwtConfig;
 import com.example.demo.jwt.JwtTokenVerifier;
 import com.example.demo.jwt.UserAuthFilter;
-import com.example.demo.security.ApplicationUserPermission;
-/*import com.example.demo.service.ApplicationUserService;*/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,16 +15,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-
 import static com.example.demo.security.ApplicationUserRole.ADMIN;
 import static com.example.demo.security.ApplicationUserRole.EMPLOYEE;
-
 @Configuration
 @EnableWebSecurity
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     private final PasswordEncoder passwordEncoder;
 
-private final JwtConfig jwtConfig;
+    private final JwtConfig jwtConfig;
 
     /* private final ApplicationUserService applicationUserService;
      */
@@ -43,7 +38,8 @@ private final JwtConfig jwtConfig;
         http.
                 csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().
-                addFilter(new UserAuthFilter(authenticationManager(), jwtConfig)).addFilterAfter(
+                addFilter(new UserAuthFilter(authenticationManager(), jwtConfig)).
+                addFilterAfter(
                         new JwtTokenVerifier(), UserAuthFilter.class
                 ).authorizeRequests().antMatchers("/", "index", "/css/*", "/js/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/v1/**").hasAuthority(ApplicationUserPermission.EMPLOYEE_WRITE.getPermission())
@@ -52,22 +48,22 @@ private final JwtConfig jwtConfig;
                 .antMatchers(HttpMethod.GET, "/api/v1/**").hasAnyRole(ADMIN.name(), EMPLOYEE.name())
                 .anyRequest()
                 .authenticated();
-               /*.and()
-               .formLogin()
-                       .loginPage("/login").
-               permitAll().defaultSuccessUrl("/success",true)
-               .passwordParameter("password")
-               .usernameParameter("username")
-               .and().rememberMe().tokenValiditySeconds((int)
-                       TimeUnit.DAYS.toSeconds(21))
-               .key("gotsecured").
-               and().
-               logout().
-               logoutUrl("/logout")
-               .clearAuthentication(true)
-               .invalidateHttpSession(true)
-               .deleteCookies("JSESSIONID","remember-me")
-               .logoutSuccessUrl(("/login"));*/
+               /* .and()
+                .formLogin()
+                .loginPage("/login").
+                permitAll().defaultSuccessUrl("/success", true)
+                .passwordParameter("password")
+                .usernameParameter("username")
+                .and().rememberMe().tokenValiditySeconds((int)
+                        TimeUnit.DAYS.toSeconds(21))
+                .key("gotsecured").
+                and().
+                logout().
+                logoutUrl("/logout")
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID", "remember-me")
+                .logoutSuccessUrl(("/login"));*/
     }
 
     /*  @Override

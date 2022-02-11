@@ -5,6 +5,7 @@ import com.example.demo.repository.IEmployeeRepository;
 import com.example.demo.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -18,8 +19,9 @@ private final IEmployeeRepository employeeRepository;
     public static void addEmployee(Employee employee) {
         System.out.println(employee);
     }
-    public List<Employee> getEmployee(){
-        return (List<Employee>) employeeRepository.findAll();
+
+    public Page<Employee> getEmployee(int page, int size){
+    return employeeRepository.findAll(PageRequest.of(page,size));
     }
 
 
@@ -57,5 +59,9 @@ private final IEmployeeRepository employeeRepository;
 
     public Page<Employee> getEmployee(Pageable pageable) {
         return employeeRepository.findAll(pageable);
+    }
+
+    public List<Employee> getAllEmployee() {
+   return employeeRepository.findAll();
     }
 }

@@ -1,9 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Employee;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface IEmployeeService {
-    List<Employee> getEmployee();
+    Page<Employee> getEmployee(int page, int size);
 }
