@@ -1,4 +1,5 @@
 package com.example.demo.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class Department {
     private Long id;
     private String departmentName;
 
+    @JsonBackReference
 @ManyToMany(targetEntity = Employee.class,cascade = CascadeType.MERGE,mappedBy = "departmentSet")
 private Set<Employee> employeeSet=new HashSet<Employee>();
 

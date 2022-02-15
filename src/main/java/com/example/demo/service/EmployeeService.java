@@ -64,4 +64,8 @@ private final IEmployeeRepository employeeRepository;
     public List<Employee> getAllEmployee() {
    return employeeRepository.findAll();
     }
+
+    public List<Employee> findByName(String employeeName) {
+        return null;
+    }
 }

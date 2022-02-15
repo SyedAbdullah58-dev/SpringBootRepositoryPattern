@@ -1,16 +1,13 @@
 package com.example.demo.model;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
 @Entity
 @Table
+
 public class Employee{
     @Id
     @SequenceGenerator(
@@ -22,24 +19,23 @@ public class Employee{
             strategy = GenerationType.SEQUENCE,
             generator = "employee_sequence"
     )
-
     private Long employeeId;
     @Column()@Basic(fetch = FetchType.LAZY)
     private int salary;
     private String designation;
-
     @Embedded()
     private User user;
-
-    @ManyToOne(targetEntity = Tenant.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Tenant.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+   @ToString.Include
     private Tenant tenant;
-
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinTable(
             name = "assigned_department",
             joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "department_id")
     )
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Set<Department> departmentSet=new HashSet<Department>();
 
     public Employee() {

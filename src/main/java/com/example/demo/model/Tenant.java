@@ -4,13 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.data.jpa.repository.EntityGraph;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-@JsonIgnoreProperties({"hibernateLazyInitializer"})
-@Entity
 
+
+
+
+
+
+@Entity
 @Table(name = "tenant")
 public class Tenant {
     @Id
@@ -24,7 +29,7 @@ public class Tenant {
 
 
 
-    @OneToMany(mappedBy = "tenant",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "tenant",cascade = CascadeType.MERGE)
 private Set<Employee> employeeSet=new HashSet<Employee>();
 
     public Tenant() {

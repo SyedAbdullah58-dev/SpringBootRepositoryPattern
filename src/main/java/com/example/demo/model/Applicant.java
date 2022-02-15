@@ -121,4 +121,12 @@ public class Applicant {
     public void setDob(String dob) {
         this.dob = dob;
     }
+
+    public Set<Job> getJobSet() {
+        return jobSet;
+    }
+
+    public void setJobSet(Set<Job> jobSet) {
+        this.jobSet = jobSet;
+    }
 }
