@@ -7,10 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
+
 @Service
-public class EmployeeService implements IEmployeeService {
+
+public class EmployeeService{
 private final IEmployeeRepository employeeRepository;
 @Autowired
     public EmployeeService(IEmployeeRepository employeeRepository) {
@@ -65,7 +70,11 @@ private final IEmployeeRepository employeeRepository;
    return employeeRepository.findAll();
     }
 
-    public List<Employee> findByName(String employeeName) {
-        return null;
+    public List<Employee> getByDepartment(String designation) {
+        return (List<Employee>) employeeRepository.findByDesignation(designation);
+    }
+
+    public String getTotalRecords() {
+   return employeeRepository.getTotalEmployee();
     }
 }

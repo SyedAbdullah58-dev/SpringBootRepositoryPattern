@@ -7,7 +7,13 @@ import java.util.HashSet;
 import java.util.Set;
 @Entity
 @Table
+/*@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = "firstProcedure",
+                procedureName = "getRecordCount"
 
+        )}
+)*/
 public class Employee{
     @Id
     @SequenceGenerator(

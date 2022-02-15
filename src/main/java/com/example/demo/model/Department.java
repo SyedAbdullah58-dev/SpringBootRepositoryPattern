@@ -12,7 +12,6 @@ import java.util.Set;
 @Table(name = "department")
 public class Department {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
     private String departmentName;
